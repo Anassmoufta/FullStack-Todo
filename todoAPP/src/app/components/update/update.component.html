@@ -1,0 +1,179 @@
+<style>
+
+  body {font-family: Arial, Helvetica, sans-serif;}
+  * {box-sizing: border-box;}
+
+  input[type=text], input[type=date], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+
+  label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+  }
+
+  input[type=submit] {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-top: 20px;
+    width: 200px;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  .container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+
+  .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+  }
+
+  .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .delete {
+    background-color: red;
+  }
+  .back {
+    background-color: #006aff;
+  }
+  .back:hover {
+    background-color: #1f7cff;
+  }
+
+  button {
+    padding: 10px;
+    border:none;
+    width: 120px;
+    margin-bottom: 30px;
+    color: white;
+    border-radius: 5px;
+  }
+  button:hover {
+    cursor: pointer;
+  }
+
+  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+
+
+
+
+
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 50px;;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2
+  }
+
+  th {
+    background-color: #04AA6D;
+    color: white;
+  }
+  </style>
+
+<body>
+
+<div>
+  <button class="back" [routerLink]="['/todo']">Back</button>
+</div>
+  <h2>UPDATE THIS TODO</h2>
+  <td><button class="delete" (click)="deleteTodo(todoToBeUpdated.id)">DELETE</button></td>
+  <table>
+    <tr>
+      <th>TASK</th>
+      <th>DESCRIPTION</th>
+      <th>DATE</th>
+      <th>IS DONE</th>
+    </tr>
+    <tr *ngIf="todoToBeUpdated">
+      <td>{{todoToBeUpdated.task}}</td>
+      <td>{{todoToBeUpdated.description}}</td>
+      <td>{{todoToBeUpdated.date | date}}</td>
+      <td>{{todoToBeUpdated.isDone}}</td>
+    </tr>
+  </table>
+
+  <div class="container">
+    <form [formGroup]="updateForm" (ngSubmit)="HandleSubmitUpdate()" *ngIf="todoToBeUpdated">
+      <div class="row">
+        <div class="col-25">
+          <label for="fname">Task</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="task" formControlName="task" placeholder="Your task..">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="lname">Description</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="description" formControlName="description" placeholder="Your description..">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="Date">Date</label>
+        </div>
+        <div class="col-75">
+          <input type="date" formControlName="date">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="subject">Is Done</label>
+        </div>
+        <div class="col-75">
+          <input type="checkbox" formControlName="isDone" style="width: 20px; height:20px;">
+        </div>
+      </div>
+      <div class="row">
+        <input type="submit" value="Save">
+      </div>
+    </form>
+  </div>
+
+</body>
